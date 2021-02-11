@@ -22,10 +22,11 @@ import (
 
 // Config defines configuration for OpenCensus exporter.
 type Config struct {
-	configmodels.ExporterSettings `mapstructure:",squash"` // squash ensures fields are correctly decoded in embedded struct.
-	configgrpc.GRPCClientSettings `mapstructure:",squash"` // squash ensures fields are correctly decoded in embedded struct.
-	exporterhelper.QueueSettings  `mapstructure:"sending_queue"`
-	exporterhelper.RetrySettings  `mapstructure:"retry_on_failure"`
+	configmodels.ExporterSettings              `mapstructure:",squash"` // squash ensures fields are correctly decoded in embedded struct.
+	configgrpc.GRPCClientSettings              `mapstructure:",squash"` // squash ensures fields are correctly decoded in embedded struct.
+	exporterhelper.QueueSettings               `mapstructure:"sending_queue"`
+	exporterhelper.RetrySettings               `mapstructure:"retry_on_failure"`
+	exporterhelper.ResourceToTelemetrySettings `mapstructure:"resource_to_telemetry_conversion"`
 
 	// The number of workers that send the gRPC requests.
 	NumWorkers int `mapstructure:"num_workers"`

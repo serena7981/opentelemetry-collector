@@ -84,6 +84,9 @@ func TestLoadConfig(t *testing.T) {
 				WriteBufferSize: 512 * 1024,
 				BalancerName:    "round_robin",
 			},
+			ResourceToTelemetrySettings: exporterhelper.ResourceToTelemetrySettings{
+				Enabled: true,
+			},
 			NumWorkers: 123,
 		})
 }

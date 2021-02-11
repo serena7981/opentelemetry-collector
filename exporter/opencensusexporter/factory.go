@@ -81,5 +81,6 @@ func createMetricsExporter(ctx context.Context, params component.ExporterCreateP
 		oce.pushMetricsData,
 		exporterhelper.WithRetry(oCfg.RetrySettings),
 		exporterhelper.WithQueue(oCfg.QueueSettings),
-		exporterhelper.WithShutdown(oce.shutdown))
+		exporterhelper.WithShutdown(oce.shutdown),
+		exporterhelper.WithResourceToTelemetryConversion(oCfg.ResourceToTelemetrySettings))
 }

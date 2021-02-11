@@ -27,6 +27,7 @@ import (
 	"go.opentelemetry.io/collector/config/configcheck"
 	"go.opentelemetry.io/collector/config/configgrpc"
 	"go.opentelemetry.io/collector/config/configtls"
+	"go.opentelemetry.io/collector/exporter/exporterhelper"
 	"go.opentelemetry.io/collector/testutil"
 )
 
@@ -36,7 +37,7 @@ func TestCreateDefaultConfig(t *testing.T) {
 	assert.NoError(t, configcheck.ValidateConfig(cfg))
 }
 
-func TestCreateTraceExporter(t *testing.T) {
+func TestCreateTraceAndMetricsExporter(t *testing.T) {
 	endpoint := testutil.GetAvailableLocalAddress(t)
 	tests := []struct {
 		name     string
@@ -154,6 +155,18 @@ func TestCreateTraceExporter(t *testing.T) {
 				NumWorkers: 3,
 			},
 			mustFail: true,
+		},
+		{
+			name: "ResourceToTelemetrySettings",
+			config: Config{
+				GRPCClientSettings: configgrpc.GRPCClientSettings{
+					Endpoint: endpoint,
+				},
+				ResourceToTelemetrySettings: exporterhelper.ResourceToTelemetrySettings{
+					Enabled: true,
+				},
+				NumWorkers: 3,
+			},
 		},
 	}
 
